@@ -1,28 +1,25 @@
-const users = [...Array(5).keys()].map(key => ({
-    id: key + '',
-    name: `Name${key}`
-}));
+var people = require('./people.json');
 
 module.exports = {
     Query: {
-        findUser: (parent, { id }) => {
-            const user = users.find(user => user.id === id);
-            if (user) {
-                return user;
+        findPerson: (parent, { id }) => {
+            const person = people[id-1];
+            if (person) {
+                return person;
             } else {
                 throw new Error('Not Found!');
             }
         },
-        allUsers: (parent) => {
-            return users;
+        allPeople: (parent) => {
+            return people;
         }
     },
 
     Mutation: {
-        deleteUser: (parent, { id }) => {
-            const index = users.findIndex(user => user.id === id);
+        deletePerson: (parent, { id }) => {
+            const index = people.findIndex(person => person.id === id);
             if (index < 0) return false;
-            users.splice(index, 1);
+            people.splice(index, 1);
             return true;
         }
     }

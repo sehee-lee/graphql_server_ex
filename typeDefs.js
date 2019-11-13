@@ -1,16 +1,20 @@
 const { gql } = require('apollo-server');
 
 module.exports = gql`
-    type User {
-        id: ID!
-        name: String!
+    type Person {
+        id: Int!
+        first_name: String!
+        last_name: String!
+        email: String
+        gender: String
+        ip_address: String
     }
 
     type Query {
-        findUser(id: ID!): User
-        allUsers: [User]
+        findPerson(id: Int!): Person
+        allPeople: [Person]
     }
     type Mutation {
-        deleteUser(id: ID!): Boolean
+        deletePerson(id: Int!): Boolean
     }
 `;

@@ -10,64 +10,64 @@ const server = new ApolloServer({
 
 const { query, mutate } = createTestClient(server);
 
-test('find user', async () => {
-  const FIND_USER = gql`
+test('find person', async () => {
+  const FIND_PERSON = gql`
     query {
-      findUser(id: "1") {
+      findPerson(id: 1) {
         id
-        name
+        first_name
       }
     }
   `;
 
   const {
-    data: { findUser }
-  } = await query({ query: FIND_USER });
+    data: { findPerson }
+  } = await query({ query: FIND_PERSON });
 
-  expect(findUser).toEqual({ id: '1', name: 'Name1' });
+  expect(findPerson).toEqual({ id: 1, first_name: 'Jeanette' });
 });
 
 test('throw error if user is not found', async () => {
-  const FIND_USER = gql`
+  const FIND_PERSON = gql`
     query {
-      findUser(id: "10") {
+      findPerson(id: 10) {
         id
-        name
+        first_name
       }
     }
   `;
 
   const {
     errors: [error]
-  } = await await query({ query: FIND_USER });
+  } = await await query({ query: FIND_PERSON });
 
   expect(error.message).toEqual('Not Found!');
 });
 
-test('delete user', async () => {
-  const DELETE_USER = gql`
-    mutation($id: ID!) {
-      deleteUser(id: $id)
+test('delete person', async () => {
+  const DELETE_PERSON = gql`
+    mutation($id: Int!) {
+      deletePerson(id: $id)
     }
   `;
 
   const {
-    data: { deleteUser }
-  } = await mutate({ mutation: DELETE_USER, variables: { id: '1' } });
+    data: { deletePerson }
+  } = await mutate({ mutation: DELETE_PERSON, variables: { id: 1 } });
 
-  expect(deleteUser).toBeTruthy();
+  expect(deletePerson).toBeTruthy();
 });
 
 test('can not delete user twice', async () => {
-  const DELETE_USER = gql`
-    mutation($id: ID!) {
-      deleteUser(id: $id)
+  const DELETE_PERSON = gql`
+    mutation($id: Int!) {
+      deletePerson(id: $id)
     }
   `;
 
   const {
-    data: { deleteUser }
-  } = await mutate({ mutation: DELETE_USER, variables: { id: '1' } });
+    data: { deletePerson }
+  } = await mutate({ mutation: DELETE_PERSON, variables: { id: 1 } });
 
-  expect(deleteUser).toBeFalsy();
+  expect(deletePerson).toBeFalsy();
 });
