@@ -1,0 +1,20 @@
+{
+  "name": "graphql_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest" 
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.9.8",
+    "apollo-server-testing": "^2.9.8",
+    "graphql": "^14.5.8"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
